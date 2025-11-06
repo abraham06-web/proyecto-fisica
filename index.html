@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simuladores de fisica</title>
+    <link rel="icon" href="img/itca2.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: #f6f8fc;
+            --surface: #ffffff;
+            --accent: #2563eb;
+            --accent-soft: rgba(37, 99, 235, 0.08);
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
+            --border: rgba(203, 213, 225, 0.7);
+            --shadow: 0 18px 35px rgba(15, 23, 42, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-primary);
+            background: var(--background);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            display: block;
+        }
+
+        header {
+            background: var(--surface);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        .topbar {
+            width: min(1100px, 92vw);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .brand img {
+            width: 160px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .brand h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            letter-spacing: 0.01em;
+        }
+
+        .topbar .cta-button {
+            border: none;
+            border-radius: 999px;
+            padding: 12px 22px;
+            background: linear-gradient(135deg, #2563eb, #22d3ee);
+            color: #f8fafc;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.26);
+        }
+
+        .topbar .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 32px rgba(37, 99, 235, 0.32);
+        }
+
+        main {
+            padding: 60px 0 80px;
+        }
+
+        .container {
+            width: min(1100px, 92vw);
+            margin: 0 auto;
+        }
+
+        .section__header {
+            text-align: center;
+            max-width: 620px;
+            margin: 0 auto 48px;
+        }
+
+        .section__eyebrow {
+            display: inline-block;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .section__title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.3rem, 4vw, 3rem);
+            margin-bottom: 16px;
+        }
+
+        .section__description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .simulators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 34px;
+        }
+
+        .simulator-card {
+            position: relative;
+            padding: 36px 28px;
+            border-radius: 28px;
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            background: linear-gradient(150deg, #ffffff 10%, #f1f5f9 90%);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            box-shadow: 0 24px 42px rgba(15, 23, 42, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .simulator-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.22), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .simulator-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 32px 56px rgba(37, 99, 235, 0.18);
+        }
+
+        .simulator-card:hover::after {
+            opacity: 1;
+        }
+
+        .simulator-icon {
+            width: 62px;
+            height: 62px;
+            border-radius: 20px;
+            background: var(--accent-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .simulator-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            z-index: 1;
+        }
+
+        .simulator-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.97rem;
+            z-index: 1;
+        }
+
+        .simulator-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            font-size: 0.92rem;
+            text-transform: uppercase;
+            color: var(--accent);
+            z-index: 1;
+        }
+
+        .simulator-cta span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.16);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .simulator-card:hover .simulator-cta span {
+            background: rgba(37, 99, 235, 0.26);
+            transform: translateX(4px);
+        }
+
+        /* --- Animaciones de Íconos --- */
+        @keyframes slide-down {
+            from {
+                transform: translate(0, 0) rotate(-35deg);
+            }
+            to {
+                transform: translate(18px, 18px) rotate(-35deg);
+            }
+        }
+
+        #block-plano {
+            animation: slide-down 1.2s ease-in-out infinite;
+        }
+
+        @keyframes parabolic-arc {
+            from {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            to {
+                transform: translate(24px, -18px) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        #projectile-parabolico {
+            animation: parabolic-arc 1.2s ease-out infinite;
+            animation-delay: 0.1s;
+        }
+
+        footer {
+            padding: 32px 0 50px;
+            text-align: center;
+            font-size: 0.95rem;
+            color: rgba(71, 85, 105, 0.85);
+        }
+
+        .developer-card {
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.96), rgba(238, 242, 255, 0.92));
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            padding: 30px 26px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .developer-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 26px 48px rgba(37, 99, 235, 0.18);
+            border-color: rgba(79, 70, 229, 0.4);
+        }
+
+        .developer-photo {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 32px;
+            overflow: hidden;
+            border: 2px solid rgba(148, 163, 184, 0.4);
+            box-shadow: 0 20px 34px rgba(15, 23, 42, 0.1);
+        }
+
+        .developer-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .developer-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .developer-phone {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.03em;
+        }
+
+        @media (max-width: 768px) {
+            .topbar {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .developers-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="topbar">
+            <div class="brand">
+                <img src="img/itca.png" alt="Logotipo ITCA">
+                <h1>Proyecto de fisica</h1>
+            </div>
+            <a href="desarrolladores.html" class="cta-button">Conocer desarrolladores</a>
+        </div>
+    </header>
+    <main>
+        <section class="container">
+            <div class="section__header">
+                <span class="section__eyebrow">Laboratorio digital</span>
+                <h2 class="section__title">Simuladores interactivos</h2>
+                <p class="section__description">Accede a herramientas virtuales diseñadas para experimentar con fenómenos físicos y observar resultados en tiempo real.</p>
+            </div>
+            <div class="simulators-grid">
+                <a class="simulator-card" href="Simulador-inclinado/index.html" target="_blank" rel="noopener noreferrer">
+                    <div class="simulator-icon" aria-hidden="true">
+                        <!-- Icono animable para Plano Inclinado -->
+                        <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 40L40 14" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M8 40H40" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
+                            <g id="block-plano" style="transform-origin: center;">
+                                <rect x="8" y="8" width="10" height="10" rx="2" fill="#1f2937" transform="rotate(-35 13 13)"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <h3 class="simulator-title">Plano Inclinado</h3>
+                    <p class="simulator-description">Analiza el desplazamiento de un objeto sobre una superficie inclinada y cuantifica las fuerzas involucradas en diferentes escenarios.</p>
+                    <span class="simulator-cta">Abrir simulador<span>→</span></span>
+                </a>
+                <a class="simulator-card" href="simulador-parabolico/index.html" target="_blank" rel="noopener noreferrer">
+                    <div class="simulator-icon" aria-hidden="true">
+                        <!-- Icono animable para Tiro Parabólico -->
+                        <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 38C16 18 30 14 40 20" stroke="#1f2937" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 4"/>
+                            <g id="projectile-parabolico">
+                                <circle cx="8" cy="38" r="4" fill="#1f2937"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <h3 class="simulator-title">Tiro Parabólico</h3>
+                    <p class="simulator-description">Explora trayectorias balísticas con control de condiciones iniciales para comprender el efecto de la gravedad y la velocidad.</p>
+                    <span class="simulator-cta">Abrir simulador<span>→</span></span>
+                </a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        © 2025 Mesa #1 — Simuladores de Física | ITCA FEPADE Regional Zacatecoluca
+    </footer>
+</body>
+</html>
