@@ -27,6 +27,53 @@
             background: #f8f9fa; /* Fondo blanco/gris claro */
             color: var(--primary-text);
         }
+
+        /* --- Header Fijo --- */
+        .sticky-header {
+            position: sticky;
+            top: 1rem;
+            background: var(--panel-bg);
+            backdrop-filter: blur(14px);
+            border-radius: 1.2rem;
+            padding: 0.8rem 1.5rem;
+            box-shadow: 0 10px 25px rgba(39, 65, 97, 0.15);
+            z-index: 1000;
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand img {
+            height: 45px;
+            width: auto;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
+        }
+
+        .back-button {
+            padding: 8px 18px;
+            border-radius: 999px;
+            background: #6c757d;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
         .layout {
             display: grid;
             grid-template-columns: 1fr;
@@ -37,7 +84,7 @@
             padding: clamp(1rem, 2vw, 2rem);
         }
         header {
-            background: var(--panel-bg);
+            /* background: var(--panel-bg);
             backdrop-filter: blur(14px);
             border-radius: 1.2rem;
             padding: 0.8rem 1.5rem; /* Reducido el padding vertical */
@@ -50,7 +97,7 @@
             letter-spacing: 0.08em;
             text-transform: uppercase;
             font-weight: 700;
-        }
+        } */
         header p {
             margin: 0.4rem auto 0;
             max-width: 65ch;
@@ -265,6 +312,7 @@
         .table-wrapper {
             max-height: 250px;
             overflow-y: auto;
+            overflow-x: auto; /* Permite scroll horizontal en tablas */
             border: 1px solid #dee2e6;
             border-radius: 8px;
         }
@@ -324,14 +372,29 @@
             .charts-grid {
                 grid-template-columns: 1fr;
             }
+            .brand h1 {
+                font-size: 1.1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0.5rem 0;
+            }
         }
     </style>
 </head>
 <body>
     <div class="layout">
-        <header>
-            <h1>Simulador de Tiro Parabólico</h1>
-            <p>Ajusta la velocidad inicial y el ángulo de lanzamiento para observar la trayectoria del proyectil y analizar su comportamiento en los gráficos.</p>
+        <header class="sticky-header">
+            <div class="header-content">
+                <a href="../index.html" class="brand">
+                    <img src="../img/itca.png" alt="Logotipo ITCA">
+                    <h1>Tiro Parabólico</h1>
+                </a>
+                <a href="../index.html" class="back-button">← Volver</a>
+            </div>
         </header>
 
         <main class="main-grid">
@@ -805,19 +868,6 @@
                     if (tab.dataset.tab === 'charts') {
                         positionChart.resize();
                         velocityChart.resize();
-                        
-                        // Ocultar panel de controles y expandir área de simulación/gráficos
-                        document.querySelector('.controls-panel').style.display = 'none';
-                        document.querySelector('.main-grid').style.gridTemplateColumns = '1fr';
-                    } else {
-                        // Mostrar panel de controles y restaurar la cuadrícula
-                        document.querySelector('.controls-panel').style.display = 'flex';
-                        // Usamos una media query en JS para restaurar el layout correcto
-                        if (window.matchMedia("(min-width: 993px)").matches) {
-                            document.querySelector('.main-grid').style.gridTemplateColumns = '320px 1fr';
-                        } else {
-                            document.querySelector('.main-grid').style.gridTemplateColumns = '1fr';
-                        }
                     }
                 });
             });

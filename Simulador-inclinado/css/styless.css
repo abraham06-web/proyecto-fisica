@@ -5,14 +5,68 @@ body {
     padding: 20px;
     background-color: #f0f7ff;
     color: #333;
+    padding-top: 100px; /* Espacio para el header fijo */
+}
+
+/* --- Header Fijo --- */
+.sticky-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+    padding: 0 20px;
+    margin-left: -20px; /* Compensa el padding del body */
+    margin-right: -20px;
+    margin-top: -100px; /* Compensa el padding-top del body */
+    margin-bottom: 20px;
+}
+
+.header-content {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 12px 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.brand img {
+    height: 45px;
+    width: auto;
+}
+
+.brand h2 {
+    font-size: 1.4rem;
+    margin: 0;
+    color: #2c3e50;
+}
+
+.back-button {
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: #6c757d;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
 }
 
 h1 {
     color: #2c3e50;
-    margin-bottom: 10px;
+    text-align: center;
+    display: none; /* Ocultamos el h1 original */
 }
 
 .main-content {
@@ -180,9 +234,8 @@ canvas {
 /* Estilos de pestañas */
 .view-switcher {
     display: flex;
-    margin-bottom: -20px;
-    width: 100%;
-    max-width: 65%; /* Ancho en escritorio */
+    margin-bottom: 10px;
+    width: fit-content; /* Se ajusta al contenido de los botones */
     gap: 10px;
 }
 
@@ -207,7 +260,8 @@ canvas {
 @media (max-width: 768px) {
     
     body {
-         padding: 10px;
+         padding: 10px; /* Padding base para móvil */
+         padding-top: 80px; /* Espacio para el header */
      }
 
     /* 1. Reorganizar de horizontal a vertical */
@@ -236,5 +290,15 @@ canvas {
         flex: 1;
         padding: 10px 10px;
         font-size: 0.9rem;
+    }
+
+    .sticky-header {
+        padding: 0 10px;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
+    .brand h2 {
+        font-size: 1.1rem;
     }
 }
