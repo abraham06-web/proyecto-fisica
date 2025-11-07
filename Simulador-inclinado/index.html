@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simulación de Plano Inclinado - Gráficos Implementados</title>
-    <link rel="icon" href="../img/itca2.png" type="image/png" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <link rel="stylesheet" href="css/styless.css" />
 
@@ -13,15 +12,7 @@
 
 <body>
     <h1>Simulación de Plano Inclinado</h1>
-    <header class="sticky-header">
-        <div class="header-content">
-            <a href="../index.html" class="brand">
-                <img src="../img/itca.png" alt="Logotipo ITCA">
-                <h2>Plano Inclinado</h2>
-            </a>
-            <a href="../index.html" class="back-button">← Volver</a>
-        </div>
-    </header>
+
     <div class="main-content">
         <div class="controls">
             <div class="control-group">
@@ -847,6 +838,30 @@
         calcularAceleracion();
         actualizarResultados();
         actualizarFormulasIntuitivas();
+    </script>
+    <script>
+        // Script para colorear dinámicamente las barras de rango
+        document.addEventListener('DOMContentLoaded', () => {
+            const sliders = document.querySelectorAll('input[type="range"]');
+
+            function updateSliderBackground(slider) {
+                const min = parseFloat(slider.min);
+                const max = parseFloat(slider.max);
+                const val = parseFloat(slider.value);
+
+                const percentage = (val - min) * 100 / (max - min);
+
+                const color = '#3498db'; // Azul claro
+                const bgColor = '#e9ecef'; // Color de fondo (blanco/gris claro)
+
+                slider.style.background = `linear-gradient(to right, ${color} ${percentage}%, ${bgColor} ${percentage}%)`;
+            }
+
+            sliders.forEach(slider => {
+                slider.addEventListener('input', () => updateSliderBackground(slider));
+                updateSliderBackground(slider); // Aplicar al cargar la página
+            });
+        });
     </script>
     <script>
         // 🔸 Función para actualizar las fórmulas dinámicamente e intuitivamente
