@@ -188,6 +188,49 @@
             width: 20px;
             height: 20px;
         }
+
+        @media (max-width: 768px) {
+            .topbar {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        /* --- Animaciones de entrada --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Aplicar animación a elementos específicos */
+        .section__title,
+        .section__description,
+        .developer-card {
+            opacity: 0; /* Inicia invisible para evitar parpadeo */
+            animation: fadeInUp 0.7s ease-out forwards;
+        }
+
+        /* Añadir retrasos para un efecto escalonado */
+        .section__description { animation-delay: 0.2s; }
+        .developers-grid .developer-card:nth-child(1) { animation-delay: 0.4s; }
+        .developers-grid .developer-card:nth-child(2) { animation-delay: 0.5s; }
+        .developers-grid .developer-card:nth-child(3) { animation-delay: 0.6s; }
+        .developers-grid .developer-card:nth-child(4) { animation-delay: 0.7s; }
+        .developers-grid .developer-card:nth-child(5) { animation-delay: 0.8s; }
+        .developers-grid .developer-card:nth-child(6) { animation-delay: 0.9s; }
+
+        .brand, .topbar .cta-button {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
     </style>
 </head>
 <body>

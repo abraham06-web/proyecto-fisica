@@ -248,6 +248,43 @@
             animation-delay: 0.1s;
         }
 
+        /* --- Animaciones de entrada --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Aplicar animación a elementos específicos */
+        .section__eyebrow,
+        .section__title,
+        .section__description,
+        .simulator-card {
+            opacity: 0; /* Inicia invisible para evitar parpadeo */
+            animation: fadeInUp 0.7s ease-out forwards;
+        }
+
+        /* Añadir retrasos para un efecto escalonado */
+        .section__eyebrow { animation-delay: 0.1s; }
+        .section__title { animation-delay: 0.25s; }
+        .section__description { animation-delay: 0.4s; }
+        .simulators-grid .simulator-card:nth-child(1) {
+            animation-delay: 0.55s;
+        }
+        .simulators-grid .simulator-card:nth-child(2) {
+            animation-delay: 0.7s;
+        }
+
+        .brand, .topbar .cta-button {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
         footer {
             padding: 32px 0 50px;
             text-align: center;
@@ -304,11 +341,6 @@
                 flex-direction: column;
                 gap: 20px;
                 text-align: center;
-            }
-
-            .developers-header {
-                flex-direction: column;
-                align-items: flex-start;
             }
         }
     </style>
